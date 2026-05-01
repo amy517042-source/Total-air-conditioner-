@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Total Air Conditioner — HVAC Consultants</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & VARIABLES ─────────────────────────────── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --ice:       #e8f4fd;
+  --sky:       #c5e4f7;
+  --blue:      #1a7fc4;
+  --deep:      #0d4f82;
+  --navy:      #071e34;
+  --frost:     #f0f8ff;
+  --white:     #ffffff;
+  --slate:     #4a6078;
+  --mist:      #8dafc8;
+  --border:    #cde0f0;
+  --text:      #1c2d3e;
+  --subtext:   #4f6b82;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 300;
+  color: var(--text);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ─── UTILITY ──────────────────────────────────────── */
+.container { max-width: 1140px; margin: 0 auto; padding: 0 32px; }
+.btn {
+  display: inline-block;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: none;
+}
+.btn-primary {
+  background: var(--blue);
+  color: var(--white);
+}
+.btn-primary:hover { background: var(--deep); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,127,196,0.35); }
+.btn-outline {
+  background: transparent;
+  color: var(--blue);
+  border: 1.5px solid var(--blue);
+}
+.btn-outline:hover { background: var(--blue); color: var(--white); }
+.btn-white {
+  background: var(--white);
+  color: var(--navy);
+}
+.btn-white:hover { background: var(--ice); transform: translateY(-2px); }
+
+/* ─── NAVBAR ───────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(7,30,52,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--blue), var(--sky));
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.logo-text span { display: block; font-size: 9px; font-weight: 400; letter-spacing: 0.2em; color: var(--mist); text-transform: uppercase; margin-top: 1px; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--blue);
+  color: var(--white) !important;
+  padding: 8px 20px;
+  border-radius: 2px;
+}
+.nav-cta:hover { background: var(--deep) !important; color: var(--white) !important; }
+
+/* ─── HERO ──────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 68px;
+}
+
+/* Animated background grid */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,127,196,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,127,196,0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridDrift 20s linear infinite;
+}
+
+@keyframes gridDrift {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(60px); }
+}
+
+/* Cold air circles */
+.air-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,127,196,0.15) 0%, transparent 70%);
+  animation: breathe 6s ease-in-out infinite;
+}
+.air-circle:nth-child(1) { width: 600px; height: 600px; top: -100px; right: -100px; animation-delay: 0s; }
+.air-circle:nth-child(2) { width: 400px; height: 400px; bottom: -50px; left: -80px; animation-delay: 3s; }
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.1); opacity: 1; }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 80px 0;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26,127,196,0.15);
+  border: 1px solid rgba(26,127,196,0.3);
+  border-radius: 99px;
+  padding: 6px 16px 6px 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sky);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  margin-bottom: 28px;
+  animation: fadeDown 0.8s ease both;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 6px var(--blue);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+h1.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  animation: fadeDown 0.8s 0.1s ease both;
+}
+h1.hero-title .accent { color: var(--sky); }
+
+.hero-sub {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--mist);
+  margin-bottom: 40px;
+  animation: fadeDown 0.8s 0.2s ease both;
+  font-weight: 300;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeDown 0.8s 0.3s ease both;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero stats */
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeDown 0.8s 0.4s ease both;
+}
+
+.stat-item {}
+.stat-number {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+}
+.stat-number sup { font-size: 1rem; color: var(--sky); }
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-top: 4px;
+}
+
+/* Hero visual — AC Unit illustration */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeDown 0.8s 0.2s ease both;
+}
+
+.ac-unit-wrap {
+  position: relative;
+  width: 320px; height: 320px;
+}
+
+.ac-unit-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,127,196,0.2) 0%, transparent 70%);
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.ac-unit {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.ac-svg {
+  width: 260px;
+  filter: drop-shadow(0 20px 60px rgba(26,127,196,0.4));
+}
+
+/* Floating tags around AC */
+.ac-tag {
+  position: absolute;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(26,127,196,0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sky);
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(8px);
+  animation: float 4s ease-in-out infinite;
+}
+.ac-tag:nth-child(2) { top: 30px; right: -20px; animation-delay: 0s; }
+.ac-tag:nth-child(3) { bottom: 60px; left: -30px; animation-delay: 1.5s; }
+.ac-tag:nth-child(4) { top: 50%; right: -40px; transform: translateY(-50%); animation-delay: 0.8s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.ac-tag:nth-child(4) { animation: float2 4s 0.8s ease-in-out infinite; }
+@keyframes float2 {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translateY(calc(-50% - 8px)); }
+}
+
+/* ─── TRUST BAR ──────────────────────────────────────── */
+#trust {
+  background: var(--ice);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 0;
+}
+
+.trust-inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.trust-label {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mist);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.trust-divider { width: 1px; height: 28px; background: var(--border); }
+
+.trust-logos {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.trust-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mist);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* ─── SECTIONS SHARED ─────────────────────────────── */
+.section { padding: 96px 0; }
+.section-alt { background: var(--frost); }
+
+.section-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--subtext);
+  max-width: 560px;
+  font-weight: 300;
+}
+
+/* ─── SERVICES ───────────────────────────────────────── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.service-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--sky));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(26,127,196,0.12);
+  border-color: var(--sky);
+}
+.service-card:hover::before { transform: scaleX(1); }
+
+.service-icon {
+  width: 52px; height: 52px;
+  background: var(--ice);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.service-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.service-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--subtext);
+  margin-bottom: 24px;
+}
+
+.service-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.service-list li {
+  font-size: 13px;
+  color: var(--slate);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.service-list li::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+
+/* ─── PROCESS ────────────────────────────────────────── */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 64px;
+  position: relative;
+}
+
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 36px; left: 12.5%; right: 12.5%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--blue), var(--sky), var(--blue));
+}
+
+.process-step {
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.step-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--blue);
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 8px var(--frost);
+  transition: all 0.3s ease;
+}
+
+.process-step:hover .step-circle {
+  background: var(--blue);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+.step-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.step-desc { font-size: 13px; line-height: 1.7; color: var(--subtext); }
+
+/* ─── ABOUT ──────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-image-wrap {
+  position: relative;
+}
+
+.about-image {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(135deg, var(--deep) 0%, var(--navy) 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(26,127,196,0.3) 0%, transparent 60%);
+}
+
+.about-image-text {
+  position: absolute;
+  bottom: 32px; left: 32px;
+  right: 32px;
+}
+
+.about-image-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.about-image-role {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sky);
+  font-family: 'Syne', sans-serif;
+}
+
+.about-badge {
+  position: absolute;
+  top: 28px; right: -20px;
+  background: var(--blue);
+  color: var(--white);
+  border-radius: 8px;
+  padding: 16px 20px;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(26,127,196,0.4);
+}
+
+.about-badge-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.about-badge-txt { font-size: 11px; color: var(--sky); margin-top: 2px; }
+
+.credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.credential-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.credential-icon {
+  width: 40px; height: 40px;
+  background: var(--ice);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.credential-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); }
+.credential-desc { font-size: 12px; color: var(--mist); margin-top: 2px; }
+
+/* ─── TESTIMONIALS ───────────────────────────────────── */
+#testimonials { background: var(--navy); }
+#testimonials .section-title { color: var(--white); }
+#testimonials .section-label { color: var(--sky); }
+#testimonials .section-sub { color: var(--mist); }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.testimonial-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 32px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.testimonial-card:hover {
+  background: rgba(26,127,196,0.1);
+  border-color: rgba(26,127,196,0.3);
+}
+
+.stars { color: #f5c518; font-size: 14px; letter-spacing: 2px; margin-bottom: 16px; }
+
+.testimonial-quote {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #c5d8e8;
+  font-style: italic;
+  margin-bottom: 24px;
+  font-weight: 300;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--deep));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: var(--white);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.author-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); }
+.author-title { font-size: 12px; color: var(--mist); margin-top: 2px; }
+
+/* ─── CONTACT ────────────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.contact-info {}
+
+.contact-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.contact-icon {
+  width: 44px; height: 44px;
+  background: var(--ice);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.contact-detail-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 4px;
+}
+.contact-detail-val { font-size: 15px; color: var(--text); }
+
+.service-hours {
+  background: var(--ice);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 32px;
+}
+
+.service-hours-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--subtext);
+}
+.hours-row:last-child { border: none; }
+.hours-row span:first-child { font-weight: 500; color: var(--text); }
+
+/* Contact Form */
+.contact-form {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 40px;
+}
+
+.form-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.form-sub { font-size: 13px; color: var(--mist); margin-bottom: 28px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+
+.form-group label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--frost);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--blue);
+  background: var(--white);
+}
+
+.form-group textarea { resize: vertical; min-height: 100px; }
+
+.form-submit { width: 100%; margin-top: 8px; padding: 16px; font-size: 14px; }
+
+/* ─── CTA BANNER ─────────────────────────────────────── */
+#cta-banner {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--deep) 100%);
+  padding: 80px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 30px,
+    rgba(255,255,255,0.03) 30px,
+    rgba(255,255,255,0.03) 31px
+  );
+}
+
+.cta-inner { position: relative; z-index: 1; }
+
+.cta-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 16px;
+}
+
+.cta-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.cta-sub { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 36px; }
+
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer {
+  background: var(--navy);
+  padding: 64px 0 32px;
+  color: var(--mist);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 56px;
+}
+
+.footer-brand {}
+.footer-logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--white);
+  margin: 12px 0 16px;
+}
+.footer-about { font-size: 13px; line-height: 1.8; color: #6a8fa8; }
+
+.footer-col-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 13px;
+  color: #6a8fa8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--sky); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #4a6a82;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ─── ANIMATIONS ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero-visual { display: none; }
+  .hero-stats { justify-content: center; }
+  .hero-buttons { justify-content: center; }
+  .services-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .process-steps::before { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-image-wrap { max-width: 360px; margin: 0 auto; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">❄️</div>
+        <div class="logo-text">Total Air Conditioner<span>HVAC Consultants</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────── -->
+<section id="hero">
+  <div class="air-circle"></div>
+  <div class="air-circle"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          Licensed HVAC Consultants
+        </div>
+        <h1 class="hero-title">
+          Perfect Climate,<br><span class="accent">Every Season.</span>
+        </h1>
+        <p class="hero-sub">
+          Total Air Conditioner delivers expert air conditioning consulting, installation, and maintenance for homes and commercial spaces. Stay cool, breathe clean, and cut energy costs.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">Get a Free Quote →</a>
+          <a href="#services" class="btn btn-outline" style="color:#c5e4f7; border-color:rgba(197,228,247,0.4);">Our Services</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number">15<sup>+</sup></div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">2,400<sup>+</sup></div>
+            <div class="stat-label">Systems Installed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">98<sup>%</sup></div>
+            <div class="stat-label">Satisfaction Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="ac-unit-wrap">
+          <div class="ac-unit-glow"></div>
+          <div class="ac-unit">
+            <!-- SVG AC Unit -->
+            <svg class="ac-svg" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Main unit body -->
+              <rect x="20" y="40" width="240" height="120" rx="12" fill="#0d4f82" stroke="#1a7fc4" stroke-width="1.5"/>
+              <!-- Front panel gradient -->
+              <rect x="20" y="40" width="240" height="120" rx="12" fill="url(#bodyGrad)"/>
+              <!-- Vents -->
+              <rect x="40" y="90" width="180" height="6" rx="3" fill="#1a7fc4" opacity="0.6"/>
+              <rect x="40" y="102" width="180" height="6" rx="3" fill="#1a7fc4" opacity="0.6"/>
+              <rect x="40" y="114" width="180" height="6" rx="3" fill="#1a7fc4" opacity="0.4"/>
+              <rect x="40" y="126" width="180" height="6" rx="3" fill="#1a7fc4" opacity="0.3"/>
+              <!-- Control panel right side -->
+              <rect x="210" y="55" width="34" height="90" rx="6" fill="rgba(26,127,196,0.15)"/>
+              <!-- Power button -->
+              <circle cx="227" cy="75" r="10" fill="#1a7fc4" opacity="0.8"/>
+              <text x="227" y="79" text-anchor="middle" font-size="10" fill="white">⏻</text>
+              <!-- Mode indicators -->
+              <circle cx="220" cy="100" r="3" fill="#34d399" opacity="0.8"/>
+              <circle cx="234" cy="100" r="3" fill="#1a7fc4" opacity="0.6"/>
+              <circle cx="220" cy="115" r="3" fill="#1a7fc4" opacity="0.3"/>
+              <circle cx="234" cy="115" r="3" fill="#1a7fc4" opacity="0.3"/>
+              <!-- Temperature display -->
+              <rect x="36" y="52" width="68" height="28" rx="4" fill="rgba(0,0,0,0.3)"/>
+              <text x="70" y="72" text-anchor="middle" font-family="monospace" font-size="18" font-weight="bold" fill="#c5e4f7">18°C</text>
+              <!-- Air flow lines (animated) -->
+              <g opacity="0.5">
+                <line x1="44" y1="82" x2="44" y2="165" stroke="#c5e4f7" stroke-width="1" stroke-dasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/>
+                </line>
+                <line x1="80" y1="82" x2="80" y2="175" stroke="#c5e4f7" stroke-width="1" stroke-dasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.2s" repeatCount="indefinite"/>
+                </line>
+                <line x1="120" y1="82" x2="120" y2="178" stroke="#c5e4f7" stroke-width="1" stroke-dasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" values="0;-16" dur="0.9s" repeatCount="indefinite"/>
+                </line>
+                <line x1="160" y1="82" x2="160" y2="175" stroke="#c5e4f7" stroke-width="1" stroke-dasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" values="0;-16" dur="1.1s" repeatCount="indefinite"/>
+                </line>
+                <line x1="196" y1="82" x2="196" y2="165" stroke="#c5e4f7" stroke-width="1" stroke-dasharray="4 4">
+                  <animate attributeName="stroke-dashoffset" values="0;-16" dur="1s" repeatCount="indefinite"/>
+                </line>
+              </g>
+              <!-- Mounting brackets -->
+              <rect x="40" y="34" width="20" height="12" rx="3" fill="#071e34" stroke="#1a7fc4" stroke-width="1"/>
+              <rect x="220" y="34" width="20" height="12" rx="3" fill="#071e34" stroke="#1a7fc4" stroke-width="1"/>
+              <defs>
+                <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(26,127,196,0.12)"/>
+                  <stop offset="100%" stop-color="rgba(26,127,196,0.02)"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <!-- Floating tags -->
+            <div class="ac-tag">❄️ 18°C Cooling</div>
+            <div class="ac-tag">🌿 Eco Mode</div>
+            <div class="ac-tag">📶 Smart Wi-Fi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUST BAR ─────────────────────────────────────── -->
+<section id="trust">
+  <div class="container">
+    <div class="trust-inner">
+      <span class="trust-label">Trusted by</span>
+      <div class="trust-divider"></div>
+      <div class="trust-logos">
+        <span class="trust-logo">Daikin Partner</span>
+        <span class="trust-logo">Mitsubishi Cert.</span>
+        <span class="trust-logo">Carrier Elite</span>
+        <span class="trust-logo">Trane Dealer</span>
+        <span class="trust-logo">ASHRAE Member</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ──────────────────────────────────────── -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Complete Air Conditioning<br>Solutions</h2>
+      <p class="section-sub">From initial consultation to ongoing maintenance, we handle every aspect of your climate control needs with certified expertise.</p>
+    </div>
+
+    <div class="services-grid reveal">
+
+      <div class="service-card">
+        <div class="service-icon">🏗️</div>
+        <div class="service-title">System Design & Consulting</div>
+        <p class="service-desc">Customized HVAC design for any space. We assess your needs, calculate loads, and recommend the perfect system for maximum efficiency.</p>
+        <ul class="service-list">
+          <li>Thermal load calculations</li>
+          <li>Energy efficiency audits</li>
+          <li>Brand & model recommendations</li>
+          <li>Cost-benefit analysis</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">Installation & Commissioning</div>
+        <p class="service-desc">Professional installation by certified technicians. We ensure your system is set up correctly from day one for peak performance.</p>
+        <ul class="service-list">
+          <li>Split & ducted systems</li>
+          <li>VRF / multi-zone systems</li>
+          <li>Commercial chillers</li>
+          <li>Full commissioning & testing</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <div class="service-title">Maintenance & Service</div>
+        <p class="service-desc">Preventive maintenance plans that extend equipment life, reduce breakdowns, and keep your energy bills in check year-round.</p>
+        <ul class="service-list">
+          <li>Annual service contracts</li>
+          <li>Filter & coil cleaning</li>
+          <li>Refrigerant top-up</li>
+          <li>24/7 emergency call-out</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌡️</div>
+        <div class="service-title">Energy Efficiency Upgrades</div>
+        <p class="service-desc">Reduce your carbon footprint and electricity costs. We identify inefficiencies and upgrade your system with modern, greener technology.</p>
+        <ul class="service-list">
+          <li>Inverter technology retrofits</li>
+          <li>Smart thermostat integration</li>
+          <li>Zoning system upgrades</li>
+          <li>Energy rebate assistance</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <div class="service-title">Commercial HVAC</div>
+        <p class="service-desc">Large-scale climate solutions for offices, retail, hospitality, and industrial facilities. We manage complex projects end to end.</p>
+        <ul class="service-list">
+          <li>Central plant design</li>
+          <li>BMS integration</li>
+          <li>Data center cooling</li>
+          <li>Compliance & certification</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🌬️</div>
+        <div class="service-title">Air Quality Solutions</div>
+        <p class="service-desc">Beyond cooling — we improve the air you breathe. Filtration, ventilation, and humidity control for healthier indoor environments.</p>
+        <ul class="service-list">
+          <li>HEPA & UV filtration</li>
+          <li>Ventilation system design</li>
+          <li>Humidity & IAQ monitoring</li>
+          <li>Mold remediation support</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ───────────────────────────────────────── -->
+<section id="process" class="section section-alt">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Our Simple 4-Step Process</h2>
+      <p class="section-sub" style="margin: 0 auto;">From first contact to a perfectly cooled space — here's what working with Total Air Conditioner looks like.</p>
+    </div>
+
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-circle">01</div>
+        <div class="step-title">Free Consultation</div>
+        <p class="step-desc">We visit your property, assess your needs, and understand your goals and budget — at no cost to you.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">02</div>
+        <div class="step-title">Custom Proposal</div>
+        <p class="step-desc">We deliver a detailed proposal with system options, pricing, timeline, and energy savings projections.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">03</div>
+        <div class="step-title">Professional Install</div>
+        <p class="step-desc">Our certified team installs your system with minimal disruption. Clean, precise, and on schedule.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">04</div>
+        <div class="step-title">Ongoing Support</div>
+        <p class="step-desc">We don't disappear after installation. Annual maintenance plans and 24/7 support keep you comfortable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ──────────────────────────────────────────── -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <div class="about-image">
+          <span>👨‍🔧</span>
+          <div class="about-image-text">
+            <div class="about-image-name">James Caldwell</div>
+            <div class="about-image-role">Founder & Lead Consultant</div>
+          </div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">15+</div>
+          <div class="about-badge-txt">Years in HVAC</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="section-label">About Us</div>
+        <h2 class="section-title">We Know Air Conditioning<br>Inside Out</h2>
+        <p class="section-sub">Total Air Conditioner was founded on a simple belief: every home and business deserves a perfectly engineered climate — not just a unit bolted to the wall. We combine engineering expertise with honest advice to deliver the right solution every time.</p>
+
+        <div class="credentials">
+          <div class="credential-item">
+            <div class="credential-icon">🎓</div>
+            <div>
+              <div class="credential-title">Certified HVAC Engineer (ASHRAE)</div>
+              <div class="credential-desc">Licensed in residential & commercial systems</div>
+            </div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon">🏆</div>
+            <div>
+              <div class="credential-title">Daikin & Mitsubishi Gold Partner</div>
+              <div class="credential-desc">Factory-trained on leading brands</div>
+            </div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon">🛡️</div>
+            <div>
+              <div class="credential-title">Fully Insured & Licensed</div>
+              <div class="credential-desc">All work backed by a 5-year workmanship warranty</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:32px">
+          <a href="#contact" class="btn btn-primary">Book a Free Consultation →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ──────────────────────────────────── -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label">Client Reviews</div>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <p class="section-sub" style="margin: 0 auto;">Don't take our word for it — here's what homeowners and businesses say after working with us.</p>
+    </div>
+
+    <div class="testimonials-grid reveal">
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">"Total Air Conditioner completely transformed our office. The energy bills dropped by 35% in the first month. James explained every decision and never oversold us. Exceptional service."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MR</div>
+          <div>
+            <div class="author-name">Michael Roberts</div>
+            <div class="author-title">Managing Director, Roberts & Co.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">"I had two other companies give me quotes that were completely wrong for my home. Total Air Conditioner did a proper load calculation and recommended a smaller, more efficient system. Saved me thousands."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SL</div>
+          <div>
+            <div class="author-name">Sarah Lim</div>
+            <div class="author-title">Homeowner, 4-Bedroom Residence</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">"Our restaurant kitchen was unbearable in summer. They designed a ventilation and cooling system that keeps both the kitchen and dining area comfortable. The installation was clean and fast."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">AT</div>
+          <div>
+            <div class="author-name">Amara Tennyson</div>
+            <div class="author-title">Owner, Tennyson's Bistro</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────────── -->
+<section id="contact" class="section section-alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Ready for Perfect Climate Control?</h2>
+      <p class="section-sub">Request your free consultation today. We'll assess your space and give you an honest recommendation — no pressure, no obligation.</p>
+    </div>
+
+    <div class="contact-grid reveal">
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-detail-label">Phone</div>
+            <div class="contact-detail-val">(800) 555-0194</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-val">info@totalac.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-detail-label">Service Area</div>
+            <div class="contact-detail-val">Greater Metro Area & Surrounding Regions</div>
+          </div>
+        </div>
+
+        <div class="service-hours">
+          <div class="service-hours-title">📅 Business Hours</div>
+          <div class="hours-row"><span>Mon – Fri</span><span>7:00 AM – 6:00 PM</span></div>
+          <div class="hours-row"><span>Saturday</span><span>8:00 AM – 4:00 PM</span></div>
+          <div class="hours-row"><span>Sunday</span><span>Emergency Only</span></div>
+          <div class="hours-row"><span>24/7 Emergency</span><span style="color:var(--blue); font-weight:500">Available</span></div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-title">Request a Free Quote</div>
+        <p class="form-sub">We'll get back to you within 24 hours.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="john@email.com">
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="(555) 000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Service Type</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>System Design & Consulting</option>
+            <option>New Installation</option>
+            <option>Maintenance / Repair</option>
+            <option>Energy Efficiency Upgrade</option>
+            <option>Commercial HVAC</option>
+            <option>Air Quality Solutions</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Property Type</label>
+          <select>
+            <option value="">Select property type...</option>
+            <option>Residential – Apartment</option>
+            <option>Residential – House</option>
+            <option>Small Commercial</option>
+            <option>Large Commercial / Industrial</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell Us About Your Needs</label>
+          <textarea placeholder="Describe your current situation, problem, or what you're looking to achieve..."></textarea>
+        </div>
+        <button class="btn btn-primary form-submit">Send Request — It's Free →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA BANNER ────────────────────────────────────── -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-label">Limited Slots This Month</div>
+      <h2 class="cta-title">Don't Sweat Another Summer.<br>Call Us Today.</h2>
+      <p class="cta-sub">Free site visits available this week. Book now and beat the heat-season rush.</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-white">Get a Free Quote</a>
+        <a href="tel:8005550194" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.4);">📞 (800) 555-0194</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="font-size:28px">❄️</div>
+        <div class="footer-logo-text">Total Air Conditioner</div>
+        <p class="footer-about">Expert HVAC consulting, installation, and maintenance. Serving residential and commercial clients with certified, honest, and efficient climate control solutions since 2010.</p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">System Design</a></li>
+          <li><a href="#">Installation</a></li>
+          <li><a href="#">Maintenance Plans</a></li>
+          <li><a href="#">Energy Upgrades</a></li>
+          <li><a href="#">Commercial HVAC</a></li>
+          <li><a href="#">Air Quality</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Process</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Blog & Tips</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#">(800) 555-0194</a></li>
+          <li><a href="#">info@totalac.com</a></li>
+          <li><a href="#">Get a Free Quote</a></li>
+          <li><a href="#">24/7 Emergency</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Total Air Conditioner. All rights reserved.</span>
+      <span>Licensed · Insured · 5-Year Workmanship Warranty</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCROLL REVEAL SCRIPT ──────────────────────────── -->
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#fff' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
