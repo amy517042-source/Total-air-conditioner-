@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Total Air Conditioning — Lucknow</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & VARIABLES ─── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --ice:     #e8f4fd;
+  --sky:     #c5e4f7;
+  --blue:    #1a7fc4;
+  --deep:    #0d4f82;
+  --navy:    #071e34;
+  --frost:   #f0f8ff;
+  --white:   #ffffff;
+  --slate:   #4a6078;
+  --mist:    #8dafc8;
+  --border:  #cde0f0;
+  --text:    #1c2d3e;
+  --sub:     #4f6b82;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 300;
+  color: var(--text);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ─── UTILITY ─── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+.btn {
+  display: inline-block;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: none;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--deep); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,127,196,0.35); }
+.btn-ghost { background: transparent; color: #c5e4f7; border: 1.5px solid rgba(197,228,247,0.35); }
+.btn-ghost:hover { background: rgba(197,228,247,0.1); }
+.btn-white { background: #fff; color: var(--navy); }
+.btn-white:hover { background: var(--ice); transform: translateY(-2px); }
+
+/* ─── NAVBAR ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(7,30,52,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 16px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--blue), var(--sky));
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+}
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.15;
+}
+.logo-text span {
+  display: block;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: var(--mist);
+  text-transform: uppercase;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-cta { background: var(--blue); color: #fff !important; padding: 8px 18px; border-radius: 4px; }
+.nav-cta:hover { background: var(--deep) !important; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--mist);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: rgba(7,30,52,0.98);
+  backdrop-filter: blur(12px);
+  padding: 16px 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  z-index: 199;
+  flex-direction: column;
+  gap: 2px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  padding: 13px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: #fff; }
+.mobile-menu .mob-cta {
+  color: var(--sky);
+  border: none;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 64px;
+}
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(26,127,196,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,127,196,0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  animation: gridDrift 22s linear infinite;
+}
+@keyframes gridDrift { 0%{transform:translateY(0)} 100%{transform:translateY(56px)} }
+
+.air-blob {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,127,196,0.14) 0%, transparent 70%);
+  animation: breathe 7s ease-in-out infinite;
+}
+.air-blob:nth-child(1) { width: 500px; height: 500px; top: -80px; right: -80px; }
+.air-blob:nth-child(2) { width: 360px; height: 360px; bottom: -60px; left: -60px; animation-delay: 3.5s; }
+@keyframes breathe { 0%,100%{transform:scale(1);opacity:.6} 50%{transform:scale(1.1);opacity:1} }
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 72px 0;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(26,127,196,0.15);
+  border: 1px solid rgba(26,127,196,0.3);
+  border-radius: 99px;
+  padding: 5px 14px 5px 8px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sky);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  margin-bottom: 22px;
+  animation: fadeDown .8s ease both;
+}
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 6px var(--blue);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+h1.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.08;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  animation: fadeDown .8s .1s ease both;
+}
+h1.hero-title .accent { color: var(--sky); }
+
+.hero-sub {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--mist);
+  margin-bottom: 32px;
+  animation: fadeDown .8s .2s ease both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: fadeDown .8s .3s ease both;
+}
+
+@keyframes fadeDown { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:translateY(0)} }
+
+.hero-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeDown .8s .4s ease both;
+}
+.hc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--mist);
+}
+.hc-row a { color: var(--sky); text-decoration: none; font-weight: 500; }
+.hc-row a:hover { color: #fff; }
+.hc-icon {
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  background: rgba(26,127,196,0.15);
+  border: 1px solid rgba(26,127,196,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* Right info card */
+.hero-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(26,127,196,0.2);
+  border-radius: 16px;
+  padding: 32px 28px;
+  backdrop-filter: blur(8px);
+  animation: fadeDown .8s .15s ease both;
+}
+.hero-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 18px;
+}
+.info-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.info-row:last-child { border: none; padding-bottom: 0; }
+.info-icon {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: rgba(26,127,196,0.15);
+  border: 1px solid rgba(26,127,196,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.info-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 3px;
+}
+.info-val { font-size: 13px; color: #fff; line-height: 1.55; }
+.info-val a { color: var(--sky); text-decoration: none; }
+.info-val a:hover { color: #fff; }
+
+/* ─── SECTIONS SHARED ─── */
+.section { padding: 80px 0; }
+.section-alt { background: var(--frost); }
+
+.section-tag {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+.section-sub {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--sub);
+  max-width: 540px;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.service-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--sky));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s;
+}
+.service-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(26,127,196,.1); border-color: var(--sky); }
+.service-card:hover::before { transform: scaleX(1); }
+.svc-icon {
+  width: 48px; height: 48px;
+  background: var(--ice);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+.svc-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.svc-desc { font-size: 13px; line-height: 1.8; color: var(--sub); margin-bottom: 16px; }
+.svc-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.svc-list li {
+  font-size: 12px;
+  color: var(--slate);
+  display: flex; align-items: center; gap: 8px;
+}
+.svc-list li::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+
+/* ─── PROCESS ─── */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+  position: relative;
+}
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 34px; left: 12%; right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--blue), var(--sky), var(--blue));
+}
+.proc-step { text-align: center; padding: 0 8px; }
+.step-num {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--blue);
+  position: relative; z-index: 1;
+  box-shadow: 0 0 0 7px var(--frost);
+  transition: all .3s;
+}
+.proc-step:hover .step-num { background: var(--blue); color: #fff; transform: scale(1.1); }
+.step-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.step-desc { font-size: 12px; line-height: 1.7; color: var(--sub); }
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.about-img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(135deg, var(--deep), var(--navy));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 72px;
+  position: relative;
+  overflow: hidden;
+}
+.about-img::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(26,127,196,.25) 0%, transparent 60%);
+}
+.about-img-info {
+  position: absolute;
+  bottom: 24px; left: 24px; right: 24px;
+}
+.about-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.about-role { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--sky); font-family: 'Syne', sans-serif; }
+
+.about-badge-wrap { position: relative; }
+.about-badge {
+  position: absolute;
+  top: 20px; right: -14px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+  box-shadow: 0 10px 28px rgba(26,127,196,.4);
+}
+.badge-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1; }
+.badge-txt { font-size: 10px; color: var(--sky); margin-top: 2px; }
+
+.creds { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+.cred {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.cred-ico {
+  width: 38px; height: 38px;
+  background: var(--ice);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.cred-t { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--navy); }
+.cred-d { font-size: 11px; color: var(--mist); margin-top: 2px; }
+
+/* ─── TESTIMONIALS ─── */
+#testimonials { background: var(--navy); }
+#testimonials .section-title { color: #fff; }
+#testimonials .section-tag { color: var(--sky); }
+#testimonials .section-sub { color: var(--mist); }
+
+.t-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.t-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 28px;
+  transition: border-color .3s, background .3s;
+}
+.t-card:hover { background: rgba(26,127,196,.1); border-color: rgba(26,127,196,.3); }
+.stars { color: #f5c518; font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; }
+.t-quote { font-size: 14px; line-height: 1.85; color: #c5d8e8; font-style: italic; margin-bottom: 20px; }
+.t-author { display: flex; align-items: center; gap: 10px; }
+.t-av {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--deep));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.t-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: #fff; }
+.t-role { font-size: 11px; color: var(--mist); margin-top: 1px; }
+
+/* ─── CONTACT ─── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 48px;
+}
+.ci { display: flex; gap: 14px; margin-bottom: 20px; }
+.ci-icon {
+  width: 42px; height: 42px;
+  background: var(--ice);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.ci-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 3px;
+}
+.ci-val { font-size: 14px; color: var(--text); line-height: 1.6; }
+.ci-val a { color: var(--blue); text-decoration: none; font-weight: 500; }
+.ci-val a:hover { color: var(--deep); }
+
+.hours-box {
+  background: var(--ice);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+.hours-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+.h-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--sub);
+}
+.h-row:last-child { border: none; }
+.h-row span:first-child { font-weight: 500; color: var(--text); }
+
+/* Form */
+.c-form {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 32px;
+}
+.form-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 5px;
+}
+.form-sub { font-size: 12px; color: var(--mist); margin-bottom: 22px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.fg label {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+.fg input,
+.fg select,
+.fg textarea {
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--frost);
+  outline: none;
+  transition: border-color .2s, background .2s;
+  width: 100%;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--blue);
+  background: var(--white);
+}
+.fg textarea { resize: vertical; min-height: 88px; }
+.form-submit { width: 100%; margin-top: 6px; padding: 15px; font-size: 13px; }
+
+/* ─── CTA BANNER ─── */
+#cta-banner {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--deep) 100%);
+  padding: 72px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#cta-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 28px, rgba(255,255,255,.025) 28px, rgba(255,255,255,.025) 29px);
+}
+.cta-inner { position: relative; z-index: 1; }
+.cta-tag {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px; letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 14px;
+}
+.cta-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -.02em;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+.cta-sub { font-size: 15px; color: rgba(255,255,255,.7); margin-bottom: 32px; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--navy);
+  padding: 56px 0 28px;
+  color: var(--mist);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+.footer-brand-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 10px 0 14px;
+}
+.footer-about { font-size: 13px; line-height: 1.85; color: #6a8fa8; }
+.footer-col-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer-links a { font-size: 13px; color: #6a8fa8; text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--sky); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #4a6a82;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ─── ANIMATIONS ─── */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 48px 0 40px; gap: 36px; }
+  .hero-badge { display: inline-flex; }
+  .hero-buttons { justify-content: center; }
+  .hero-contacts { align-items: center; }
+  .hc-row { justify-content: center; }
+
+  .services-grid { grid-template-columns: 1fr; }
+
+  .process-steps { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .process-steps::before { display: none; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-badge-wrap { max-width: 300px; margin: 0 auto; }
+  .about-badge { right: 0; }
+
+  .t-grid { grid-template-columns: 1fr; }
+
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .form-row { grid-template-columns: 1fr; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .cta-btns { flex-direction: column; align-items: center; }
+  .section { padding: 56px 0; }
+}
+
+@media (max-width: 480px) {
+  .logo-text span { display: none; }
+  h1.hero-title { font-size: 2rem; }
+  .btn { padding: 13px 20px; font-size: 12px; }
+  .c-form { padding: 22px 16px; }
+  .process-steps { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-card { padding: 24px 18px; }
+}
+
+.phone-field{
+  display:flex;
+  align-items:center;
+  border:1px solid var(--border);
+  border-radius:5px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.country-code{
+  background:var(--ice);
+  padding:13px 14px;
+  font-weight:700;
+  color:var(--deep);
+  border-right:1px solid var(--border);
+  font-family:'Syne',sans-serif;
+}
+
+.phone-field input{
+  border:none !important;
+  flex:1;
+  outline:none;
+}
+</style>
+</head>
+<script>
+
+const phoneInput = document.getElementById('phone');
+
+phoneInput.addEventListener('input', function () {
+
+  // Remove anything except numbers
+  this.value = this.value.replace(/\D/g, '');
+
+  // Limit to 10 digits only
+  if(this.value.length > 10){
+    this.value = this.value.slice(0,10);
+  }
+
+});
+
+</script>
+<body>
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-icon">❄️</div>
+        <div class="logo-text">
+          Total Air Conditioning
+          <span>Hussainabad Chowk · Lucknow</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Dropdown -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMob()">Services</a>
+  <a href="#process" onclick="closeMob()">Process</a>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#testimonials" onclick="closeMob()">Reviews</a>
+  <a href="#contact" class="mob-cta" onclick="closeMob()">→ Get a Free Quote</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="air-blob"></div>
+  <div class="air-blob"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Left: Hero Text -->
+      <div>
+        <div class="hero-badge">
+          <div class="badge-dot"></div>
+          Lucknow's AC Specialists
+        </div>
+        <h1 class="hero-title">
+          Cool Comfort,<br><span class="accent">Any Space.</span>
+        </h1>
+        <p class="hero-sub">
+          Total Air Conditioning deals in all types of air conditioning systems — installation, service, and maintenance for homes and businesses across Lucknow.
+        </p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">Get a Free Quote →</a>
+          <a href="#services" class="btn btn-ghost">Our Services</a>
+        </div>
+
+        <!-- Real contact from card -->
+        <div class="hero-contacts">
+         
+          <div class="hc-row">
+            <div class="hc-icon">📞</div>
+            <span>Wasi Ahmad &nbsp;·&nbsp; <a href="tel:+918115885552">+91 81158 85552</a></span>
+          </div>
+           <div class="hc-row">
+            <div class="hc-icon">📞</div>
+            <span>Shoeb Ahmad &nbsp;·&nbsp; <a href="tel:+917607228001">+91 76072 28001</a></span>
+          </div>
+          <div class="hc-row">
+            <div class="hc-icon">✉️</div>
+            <a href="mailto:totalaircondition@gmail.com">totalaircondition@gmail.com</a>
+          </div>
+          <div class="hc-row">
+            <div class="hc-icon">📍</div>
+            <span>462/141, Hussainabad Chowk, Lucknow – 226003</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Business Details Card -->
+      <div class="hero-card">
+        <div class="hero-card-title">Business Details</div>
+
+        <div class="info-row">
+          <div class="info-icon">🏢</div>
+          <div>
+            <div class="info-label">Company</div>
+            <div class="info-val">Total Air Conditioning</div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">👤</div>
+          <div>
+            <div class="info-label">Proprietors</div>
+            <div class="info-val">Wasi Ahmad<br>Shoeb Ahmad</div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="info-label">Phone Numbers</div>
+            <div class="info-val">
+              <a href="tel:+918115885552">+91 8115885552</a><br>
+              <a href="tel:+917607228001">+91 7607228001</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-val"><a href="mailto:totalaircondition@gmail.com">totalaircondition@gmail.com</a></div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Address</div>
+            <div class="info-val">462/141, Hussainabad Chowk,<br>Lucknow – 226003</div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">🔧</div>
+          <div>
+            <div class="info-label">Deals In</div>
+            <div class="info-val">All Types of AC Systems<br>Installation · Service · Maintenance</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title">Complete Air Conditioning<br>Solutions</h2>
+      <p class="section-sub">From first consultation to annual upkeep — we handle every AC need honestly and professionally.</p>
+    </div>
+
+    <div class="services-grid reveal">
+
+      <div class="service-card">
+        <div class="svc-icon">❄️</div>
+        <div class="svc-title">AC Installation</div>
+        <p class="svc-desc">Professional installation of all AC types by trained technicians — correct sizing, right placement, clean finish.</p>
+        <ul class="svc-list">
+          <li>Split AC installation</li>
+          <li>Window AC fitting</li>
+          <li>Cassette & ceiling units</li>
+          <li>Ducted & central systems</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🔧</div>
+        <div class="svc-title">AC Repair & Service</div>
+        <p class="svc-desc">Fast diagnosis and repair of any AC brand or model. We fix what others can't and do it right the first time.</p>
+        <ul class="svc-list">
+          <li>Gas / refrigerant top-up</li>
+          <li>Compressor repair</li>
+          <li>PCB & electrical faults</li>
+          <li>Cooling & noise issues</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🧹</div>
+        <div class="svc-title">Annual Maintenance</div>
+        <p class="svc-desc">Preventive servicing that keeps your AC running at peak efficiency all year — reduces bills and prevents breakdowns.</p>
+        <ul class="svc-list">
+          <li>Deep coil & filter cleaning</li>
+          <li>Drain pipe flushing</li>
+          <li>Thermostat calibration</li>
+          <li>Full performance check</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🏠</div>
+        <div class="svc-title">Residential AC</div>
+        <p class="svc-desc">Keep your home perfectly cool. We work with all leading brands and offer same-day service across Lucknow.</p>
+        <ul class="svc-list">
+          <li>All leading brands</li>
+          <li>Single & multi-room setups</li>
+          <li>Energy-efficient options</li>
+          <li>Inverter AC specialists</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🏢</div>
+        <div class="svc-title">Commercial AC</div>
+        <p class="svc-desc">Offices, shops, showrooms, and restaurants — we design and maintain commercial cooling for any size space.</p>
+        <ul class="svc-list">
+          <li>Office & retail cooling</li>
+          <li>Multi-zone systems</li>
+          <li>VRF / VRV systems</li>
+          <li>AMC contracts available</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="svc-icon">🌬️</div>
+        <div class="svc-title">Air Quality & Ventilation</div>
+        <p class="svc-desc">Fresh, clean indoor air. Filter upgrades, ventilation checks, and humidity control for healthier spaces.</p>
+        <ul class="svc-list">
+          <li>Filter replacement & upgrade</li>
+          <li>Ventilation assessment</li>
+          <li>Humidity control</li>
+          <li>Odour & mould solutions</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─── -->
+<section id="process" class="section section-alt">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title">Simple 4-Step Process</h2>
+      <p class="section-sub" style="margin:0 auto">From your first call to a perfectly cooled space — here's how we work.</p>
+    </div>
+
+    <div class="process-steps reveal">
+      <div class="proc-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Call or WhatsApp</div>
+        <p class="step-desc">Reach Wasi or Shoeb directly on 8115885552 or 7607228001— we respond fast.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Site Visit & Quote</div>
+        <p class="step-desc">We visit your property, assess the space, and give you a honest, transparent quote.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Installation / Service</div>
+        <p class="step-desc">Our team gets to work on schedule — clean, professional, and disruption-free.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Ongoing Support</div>
+        <p class="step-desc">Annual maintenance contracts and prompt call-outs keep your system running perfectly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-badge-wrap reveal">
+        <div class="about-img">
+          <span>👨‍🔧</span>
+          <div class="about-img-info">
+            <div class="about-name">Wasi Ahmad & Shoeb</div>
+            <div class="about-role">Founders · Total Air Conditioning</div>
+          </div>
+        </div>
+        <div class="about-badge">
+          <div class="badge-num">100%</div>
+          <div class="badge-txt">Local & Trusted</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="section-tag">About Us</div>
+        <h2 class="section-title">Lucknow's Own AC<br>Specialists</h2>
+        <p class="section-sub">Total Air Conditioning is a family business run by brothers Shoeb Ahmad and Wasi Ahmad from Hussainabad Chowk, Lucknow. We deal in all types of air conditioning systems — offering honest advice, fair prices, and reliable workmanship to homes and businesses across Lucknow.</p>
+
+        <div class="creds">
+          <div class="cred">
+            <div class="cred-ico">📍</div>
+            <div>
+              <div class="cred-t">Based in Lucknow</div>
+              <div class="cred-d">462/141, Hussainabad Chowk, Lucknow – 226003</div>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-ico">❄️</div>
+            <div>
+              <div class="cred-t">All AC Types & All Brands</div>
+              <div class="cred-d">Split, window, cassette, ducted, VRF — we service them all</div>
+            </div>
+          </div>
+          <div class="cred">
+            <div class="cred-ico">🤝</div>
+            <div>
+              <div class="cred-t">Honest & Transparent</div>
+              <div class="cred-d">Fair quotes, no hidden charges, quality guaranteed</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="tel:+917607228001" class="btn btn-primary">📞 Call Shoeb</a>
+          <a href="tel:+918115885552" class="btn btn-primary" style="background:var(--deep);">📞 Call Wasi</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="testimonials" class="section">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-tag">Reviews</div>
+      <h2 class="section-title">What Lucknow Clients Say</h2>
+      <p class="section-sub" style="margin:0 auto">Trusted by hundreds of homes and businesses across Lucknow.</p>
+    </div>
+
+    <div class="t-grid reveal">
+
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-quote">"Shoeb bhai ka kaam bahut acha tha. AC installation clean aur fast thi. Bahut hi reasonable rate mein kaam kiya. Highly recommended!"</p>
+        <div class="t-author">
+          <div class="t-av">AK</div>
+          <div>
+            <div class="t-name">Aslam Khan</div>
+            <div class="t-role">Homeowner, Lucknow</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-quote">"Our office AC was not cooling properly for weeks. Wasi Ahmad came same day, diagnosed the gas leak, and fixed it within 2 hours. Excellent service."</p>
+        <div class="t-author">
+          <div class="t-av">RS</div>
+          <div>
+            <div class="t-name">Ravi Sharma</div>
+            <div class="t-role">Office Manager, Hazratganj</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-quote">"Got 3 ACs installed for my shop in Hussainabad. Total Air Conditioning gave the best price and the work was very neat. Will call them again for servicing."</p>
+        <div class="t-author">
+          <div class="t-av">MF</div>
+          <div>
+            <div class="t-name">Mohammad Farhan</div>
+            <div class="t-role">Shop Owner, Hussainabad</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact" class="section section-alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">Ready for Cool Comfort?</h2>
+      <p class="section-sub">Call, WhatsApp, or fill the form — we'll respond quickly with a free quote.</p>
+    </div>
+
+    <div class="contact-grid reveal">
+
+      <div>
+        <div class="ci">
+          <div class="ci-icon">👤</div>
+          <div>
+            <div class="ci-label">Wasi Ahmad</div>
+            <div class="ci-val"><a href="tel:+918115885552">+91 8115885552</a></div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">👤</div>
+          <div>
+            <div class="ci-label">Shoeb Ahmad</div>
+            <div class="ci-val"><a href="tel:+917607228001">+91 7607228001</a></div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">✉️</div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-val"><a href="mailto:totalaircondition@gmail.com">totalaircondition@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="ci">
+          <div class="ci-icon">📍</div>
+          <div>
+            <div class="ci-label">Address</div>
+            <div class="ci-val">462/141, Hussainabad Chowk,<br>Lucknow – 226003</div>
+          </div>
+        </div>
+
+        <div class="hours-box">
+          <div class="hours-title">📅 Working Hours</div>
+          <div class="h-row"><span>Mon – Sat</span><span>8:00 AM – 8:00 PM</span></div>
+          <div class="h-row"><span>Sunday</span><span>9:00 AM – 5:00 PM</span></div>
+          <div class="h-row"><span>Emergency</span><span style="color:var(--blue);font-weight:500">Call Anytime</span></div>
+        </div>
+      </div>
+
+       <!-- FORM -->
+      <form class="c-form" action="https://formspree.io/f/xrejyrdd" method="POST">
+
+  <div class="form-title">Request a Free Quote</div>
+  <p class="form-sub">We'll respond within a few hours.</p>
+
+  <div class="form-row">
+
+    <div class="fg">
+      <label>Your Name</label>
+      <input 
+        type="text" 
+        name="name"
+        placeholder="e.g. Rahul Verma"
+        required
+      >
+    </div>
+
+    <div class="fg">
+  <label>Phone Number</label>
+
+  <div class="phone-field">
+
+    <span class="country-code">+91</span>
+
+    <input 
+      type="tel"
+      id="phone"
+      name="phone"
+      placeholder="9876543210"
+      maxlength="10"
+      pattern="[0-9]{10}"
+      inputmode="numeric"
+      required
+    >
+
+  </div>
+</div>
+
+  </div>
+
+  <div class="fg">
+    <label>Email (optional)</label>
+    <input 
+      type="email" 
+      name="email"
+      placeholder="your@email.com"
+    >
+  </div>
+
+  <div class="fg">
+    <label>Service Required</label>
+
+    <select name="service" required>
+      <option value="">Select a service...</option>
+      <option>New AC Installation</option>
+      <option>AC Repair / Fault</option>
+      <option>Annual Maintenance</option>
+      <option>Gas / Refrigerant Top-Up</option>
+      <option>Commercial AC</option>
+      <option>Other</option>
+    </select>
+  </div>
+
+  <div class="fg">
+    <label>AC Brand / Type (if known)</label>
+
+    <input 
+      type="text"
+      name="ac_brand"
+      placeholder="e.g. Voltas 1.5 Ton Split AC"
+    >
+  </div>
+
+  <div class="fg">
+    <label>Describe Your Requirement</label>
+
+    <textarea 
+      name="message"
+      placeholder="Tell us what you need — not cooling, new installation, service, etc."
+      required
+    ></textarea>
+  </div>
+
+  <!-- Optional Hidden Fields -->
+  <input type="hidden" name="_subject" value="New AC Service Request">
+  <input type="hidden" name="_captcha" value="false">
+
+  <button type="submit" class="btn btn-primary form-submit">
+    Send Request — It's Free →
+  </button>
+
+</form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA BANNER ─── -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-tag">Serving All of Lucknow</div>
+      <h2 class="cta-title">Don't Sweat This Summer.<br>Call Us Today.</h2>
+      <p class="cta-sub">Same-day service · Free site visits · Honest pricing across Lucknow</p>
+      <div class="cta-btns">
+        <a href="tel:+917607228001" class="btn btn-white">📞 +91 7607228001</a>
+        <a href="tel:+918115885552" class="btn btn-white">📞 +91 8115885552</a>
+        <a href="mailto:totalaircondition@gmail.com" class="btn btn-ghost" style="color:#fff; border-color:rgba(255,255,255,.35);">✉️ Email Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <div>
+        <div style="font-size:26px">❄️</div>
+        <div class="footer-brand-name">Total Air Conditioning</div>
+        <p class="footer-about">Shoeb Ahmad & Wasi Ahmad — dealing in all types of air conditioning systems. Installation, service, and maintenance across Lucknow. 462/141, Hussainabad Chowk, Lucknow – 226003.</p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#services">AC Installation</a></li>
+          <li><a href="#services">Service & Repair</a></li>
+          <li><a href="#services">Annual Maintenance</a></li>
+          <li><a href="#services">Commercial AC</a></li>
+          <li><a href="#services">Air Quality</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          
+          <li><a href="tel:+918115885552">+91 8115885552 (Wasi)</a></li>
+          <li><a href="tel:+917607228001">+91 7607228001 (Shoeb)</a></li>
+          <li><a href="mailto:totalaircondition@gmail.com">totalaircondition@gmail.com</a></li>
+          <li><a href="#">462/141, Hussainabad Chowk</a></li>
+          <li><a href="#">Lucknow – 226003</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Total Air Conditioning, Lucknow. All rights reserved.</span>
+      <span> Wasi Ahmad · Shoeb Ahmad · Hussainabad Chowk</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  // Hamburger
+  const ham = document.getElementById('hamburger');
+  const mob = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    mob.classList.toggle('open');
+  });
+  function closeMob() {
+    ham.classList.remove('open');
+    mob.classList.remove('open');
+  }
+
+  // Nav active highlight
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 90) cur = s.id; });
+    links.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? '#fff' : ''; });
+  });
+</script>
+
+</body>
+</html>
